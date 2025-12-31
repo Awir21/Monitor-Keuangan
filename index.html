@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack - Monitoring Keuangan Pribadi 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header dan Navigasi -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <div class="logo-content">
+                    <h1>FinTrack</h1>
+                    <p class="tagline">Monitoring Keuangan Pribadi untuk Pekerja Indonesia</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#transaksi"><i class="fas fa-exchange-alt"></i> Transaksi</a></li>
+                    <li><a href="#anggaran"><i class="fas fa-wallet"></i> Anggaran</a></li>
+                    <li><a href="#laporan"><i class="fas fa-chart-pie"></i> Laporan</a></li>
+                    <li><a href="#target"><i class="fas fa-bullseye"></i> Target</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">Pengguna FinTrack</span>
+                    <span class="user-status">Pekerja Indonesia</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Dashboard Overview -->
+        <section id="dashboard" class="section active">
+            <div class="section-header">
+                <h2><i class="fas fa-home"></i> Dashboard Keuangan</h2>
+                <p class="current-date">Rabu, 15 Januari 2026</p>
+            </div>
+
+            <!-- Ringkasan Keuangan -->
+            <div class="financial-summary">
+                <div class="summary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Saldo Saat Ini</h3>
+                        <p class="amount" id="current-balance">Rp 8.750.000</p>
+                        <p class="change positive"><i class="fas fa-arrow-up"></i> 12% dari bulan lalu</p>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Pengeluaran Bulan Ini</h3>
+                        <p class="amount" id="month-expense">Rp 4.250.000</p>
+                        <p class="change negative"><i class="fas fa-arrow-up"></i> 8% dari bulan lalu</p>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Pemasukan Bulan Ini</h3>
+                        <p class="amount" id="month-income">Rp 13.000.000</p>
+                        <p class="change positive"><i class="fas fa-arrow-up"></i> 15% dari bulan lalu</p>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Tabungan & Investasi</h3>
+                        <p class="amount" id="total-savings">Rp 25.500.000</p>
+                        <p class="change positive"><i class="fas fa-arrow-up"></i> 5% dari bulan lalu</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik dan Statistik -->
+            <div class="dashboard-charts">
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-bar"></i> Tren Keuangan 6 Bulan Terakhir</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="financeTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-pie"></i> Distribusi Pengeluaran</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaksi Terbaru -->
+            <div class="recent-transactions">
+                <h3><i class="fas fa-history"></i> Transaksi Terbaru</h3>
+                <div class="transactions-list" id="recent-transactions-list">
+                    <!-- Data transaksi akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Transaksi Section -->
+        <section id="transaksi" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-exchange-alt"></i> Kelola Transaksi</h2>
+                <button class="btn-primary" id="add-transaction-btn"><i class="fas fa-plus"></i> Tambah
+                    Transaksi</button>
+            </div>
+
+            <!-- Form Tambah Transaksi -->
+            <div class="transaction-form" id="transaction-form">
+                <h3>Tambah Transaksi Baru</h3>
+                <form id="new-transaction-form">
+                    <div class="form-group">
+                        <label for="transaction-type">Jenis Transaksi</label>
+                        <select id="transaction-type" required>
+                            <option value="">Pilih Jenis</option>
+                            <option value="income">Pemasukan</option>
+                            <option value="expense">Pengeluaran</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transaction-category">Kategori</label>
+                        <select id="transaction-category" required>
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transaction-amount">Jumlah (Rp)</label>
+                        <input type="number" id="transaction-amount" placeholder="Masukkan jumlah" required min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transaction-description">Deskripsi</label>
+                        <input type="text" id="transaction-description"
+                            placeholder="Contoh: Gaji Januari, Belanja Bulanan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transaction-date">Tanggal</label>
+                        <input type="date" id="transaction-date" required>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Simpan Transaksi</button>
+                        <button type="button" class="btn-secondary" id="cancel-transaction-btn">Batal</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Filter Transaksi -->
+            <div class="transaction-filters">
+                <div class="filter-group">
+                    <label for="filter-type">Filter Jenis:</label>
+                    <select id="filter-type">
+                        <option value="all">Semua Transaksi</option>
+                        <option value="income">Pemasukan</option>
+                        <option value="expense">Pengeluaran</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-category">Filter Kategori:</label>
+                    <select id="filter-category">
+                        <option value="all">Semua Kategori</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-month">Filter Bulan:</label>
+                    <select id="filter-month">
+                        <option value="all">Semua Bulan</option>
+                    </select>
+                </div>
+
+                <button class="btn-secondary" id="reset-filters-btn"><i class="fas fa-redo"></i> Reset Filter</button>
+            </div>
+
+            <!-- Daftar Transaksi -->
+            <div class="transactions-container">
+                <h3>Daftar Transaksi</h3>
+                <div class="transactions-table-container">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Deskripsi</th>
+                                <th>Kategori</th>
+                                <th>Jenis</th>
+                                <th>Jumlah (Rp)</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-list">
+                            <!-- Data transaksi akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-summary">
+                    <p>Total Pemasukan: <span id="total-income">Rp 0</span></p>
+                    <p>Total Pengeluaran: <span id="total-expense">Rp 0</span></p>
+                    <p>Saldo: <span id="transaction-balance">Rp 0</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anggaran Section -->
+        <section id="anggaran" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-wallet"></i> Kelola Anggaran</h2>
+                <button class="btn-primary" id="add-budget-btn"><i class="fas fa-plus"></i> Tambah Anggaran</button>
+            </div>
+
+            <!-- Form Tambah Anggaran -->
+            <div class="budget-form" id="budget-form">
+                <h3>Tambah Anggaran Baru</h3>
+                <form id="new-budget-form">
+                    <div class="form-group">
+                        <label for="budget-category">Kategori</label>
+                        <select id="budget-category" required>
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget-amount">Jumlah Anggaran (Rp)</label>
+                        <input type="number" id="budget-amount" placeholder="Masukkan jumlah anggaran" required min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget-period">Periode Anggaran</label>
+                        <select id="budget-period" required>
+                            <option value="monthly">Bulanan</option>
+                            <option value="yearly">Tahunan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Simpan Anggaran</button>
+                        <button type="button" class="btn-secondary" id="cancel-budget-btn">Batal</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Daftar Anggaran -->
+            <div class="budgets-container">
+                <h3>Anggaran Bulanan</h3>
+                <div class="budgets-list" id="budgets-list">
+                    <!-- Data anggaran akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Progress Anggaran -->
+            <div class="budget-progress">
+                <h3><i class="fas fa-chart-line"></i> Progress Anggaran</h3>
+                <div class="progress-container" id="budget-progress-container">
+                    <!-- Progress bars akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Laporan Section -->
+        <section id="laporan" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-pie"></i> Laporan Keuangan</h2>
+                <div class="report-period">
+                    <button class="btn-primary" id="generate-report-btn"><i class="fas fa-file-pdf"></i> Unduh
+                        Laporan PDF</button>
+                </div>
+            </div>
+
+            <!-- Ringkasan Laporan -->
+            <div class="report-summary">
+                <div class="report-card">
+                    <h3>Total Pemasukan</h3>
+                    <p class="report-amount" id="report-income">Rp 0</p>
+                    <p class="report-change"><span id="income-change">0%</span> dari periode sebelumnya</p>
+                </div>
+
+                <div class="report-card">
+                    <h3>Total Pengeluaran</h3>
+                    <p class="report-amount" id="report-expense">Rp 0</p>
+                    <p class="report-change"><span id="expense-change">0%</span> dari periode sebelumnya</p>
+                </div>
+
+                <div class="report-card">
+                    <h3>Pengeluaran Terbesar</h3>
+                    <p class="report-category" id="top-expense-category">-</p>
+                    <p class="report-amount" id="top-expense-amount">Rp 0</p>
+                </div>
+
+                <div class="report-card">
+                    <h3>Saldo Akhir</h3>
+                    <p class="report-amount" id="report-balance">Rp 0</p>
+                    <p class="report-change"><span id="balance-change">0%</span> dari periode sebelumnya</p>
+                </div>
+            </div>
+
+            <!-- Grafik Laporan -->
+            <div class="report-charts">
+                <div class="chart-container">
+                    <h3>Perbandingan Pemasukan vs Pengeluaran</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="incomeExpenseChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Trend Pengeluaran per Kategori</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabel Detail Laporan -->
+            <div class="report-details">
+                <h3>Detail Laporan Keuangan</h3>
+                <div class="report-table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Kategori</th>
+                                <th>Pemasukan (Rp)</th>
+                                <th>Pengeluaran (Rp)</th>
+                                <th>Saldo (Rp)</th>
+                                <th>% dari Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-details-body">
+                            <!-- Data laporan akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Target Section -->
+        <section id="target" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-bullseye"></i> Target Keuangan</h2>
+                <button class="btn-primary" id="add-target-btn"><i class="fas fa-plus"></i> Tambah Target</button>
+            </div>
+
+            <!-- Form Tambah Target -->
+            <div class="target-form" id="target-form">
+                <h3>Tambah Target Baru</h3>
+                <form id="new-target-form">
+                    <div class="form-group">
+                        <label for="target-name">Nama Target</label>
+                        <input type="text" id="target-name" placeholder="Contoh: DP Rumah, Liburan ke Bali" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target-amount">Jumlah Target (Rp)</label>
+                        <input type="number" id="target-amount" placeholder="Masukkan jumlah target" required min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target-deadline">Target Tanggal</label>
+                        <input type="date" id="target-deadline" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target-saved">Jumlah Tersimpan (Rp)</label>
+                        <input type="number" id="target-saved" placeholder="Masukkan jumlah yang sudah tersimpan"
+                            required min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target-category">Kategori Target</label>
+                        <select id="target-category" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="emergency">Dana Darurat</option>
+                            <option value="house">Pembelian Rumah</option>
+                            <option value="vehicle">Pembelian Kendaraan</option>
+                            <option value="education">Pendidikan</option>
+                            <option value="vacation">Liburan</option>
+                            <option value="investment">Investasi</option>
+                            <option value="other">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Simpan Target</button>
+                        <button type="button" class="btn-secondary" id="cancel-target-btn">Batal</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Daftar Target -->
+            <div class="targets-container">
+                <h3>Target Keuangan Saya</h3>
+                <div class="targets-list" id="targets-list">
+                    <!-- Data target akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Progress Target -->
+            <div class="target-progress">
+                <h3><i class="fas fa-trophy"></i> Progress Target</h3>
+                <div class="progress-summary">
+                    <div class="progress-summary-card">
+                        <h4>Total Target</h4>
+                        <p id="total-target-amount">Rp 0</p>
+                    </div>
+
+                    <div class="progress-summary-card">
+                        <h4>Terkumpul</h4>
+                        <p id="total-saved-amount">Rp 0</p>
+                    </div>
+
+                    <div class="progress-summary-card">
+                        <h4>Sisa</h4>
+                        <p id="total-remaining-amount">Rp 0</p>
+                    </div>
+
+                    <div class="progress-summary-card">
+                        <h4>Progress</h4>
+                        <p id="overall-progress">0%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>FinTrack<span>2026</span></h3>
+                        <p>Monitoring Keuangan Pribadi untuk Pekerja Indonesia</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#dashboard" class="nav-link-footer"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="#transaksi" class="nav-link-footer"><i class="fas fa-exchange-alt"></i>
+                                Transaksi</a></li>
+                        <li><a href="#anggaran" class="nav-link-footer"><i class="fas fa-wallet"></i> Anggaran</a></li>
+                        <li><a href="#laporan" class="nav-link-footer"><i class="fas fa-chart-pie"></i> Laporan</a></li>
+                        <li><a href="#target" class="nav-link-footer"><i class="fas fa-bullseye"></i> Target</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-info">
+                    <h4>Kontak</h4>
+                    <p><i class="fas fa-envelope"></i> support@fintrack2026.id</p>
+                    <p><i class="fas fa-phone"></i> (021) 1234-5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                </div>
+
+                <div class="footer-legal">
+                    <h4>Informasi</h4>
+                    <p>&copy; 2026 FinTrack. Hak cipta dilindungi.</p>
+                    <p>Dibuat untuk pekerja Indonesia.</p>
+                    <p>Data disimpan secara lokal di perangkat Anda.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Transaksi berhasil disimpan!</span>
+        </div>
+    </div>
+
+    <!-- Konfirmasi Hapus Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Konfirmasi Hapus</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus item ini?</p>
+                <p class="delete-item-details"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancel-delete">Batal</button>
+                <button class="btn-danger" id="confirm-delete">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export/Import Modal -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Backup & Restore Data</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-section">
+                    <h4><i class="fas fa-download"></i> Backup Data ke PDF</h4>
+                    <p>Download semua data keuangan Anda dalam format PDF untuk disimpan sebagai backup.</p>
+                    <button class="btn-primary" id="export-data-btn"><i class="fas fa-file-pdf"></i> Ekspor Data ke
+                        PDF</button>
+                </div>
+
+                <div class="reset-section">
+                    <h4><i class="fas fa-trash"></i> Reset Data</h4>
+                    <p>Hapus semua data dan kembali ke data contoh. <strong>Peringatan:</strong> Tindakan ini tidak
+                        dapat dibatalkan!</p>
+                    <button class="btn-danger" id="reset-data-btn"><i class="fas fa-exclamation-triangle"></i> Reset
+                        Semua Data</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
