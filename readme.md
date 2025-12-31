@@ -1,5 +1,9 @@
-# 📈 FinTrack 2026 - Monitoring Keuangan Pribadi
+ 📈 FinTrack 2026 - Monitoring Keuangan Pribadi!
+ 
+ ---
+<img width="1920" height="2398" alt="screencapture-monitor-keuangan-vercel-app-2025-12-31-11_32_37" src="https://github.com/user-attachments/assets/31b8c07f-6f75-424d-a450-f16fe6a56f3f" />
 
+---
 FinTrack adalah aplikasi web sederhana namun powerful untuk memantau keuangan pribadi. Didesain khusus untuk pekerja Indonesia, aplikasi ini membantu pengguna melacak pemasukan, pengeluaran, mengatur anggaran, serta menetapkan target keuangan masa depan.
 
 Aplikasi ini berjalan sepenuhnya di sisi klien (browser), sehingga data Anda tersimpan aman secara lokal di perangkat Anda (LocalStorage) tanpa perlu koneksi ke server database eksternal.
